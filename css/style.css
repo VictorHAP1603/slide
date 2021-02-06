@@ -65,3 +65,26 @@ img {
   border-radius: 4px;
   cursor: pointer;
 }
+
+[data-control="slide"] {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+[data-control="slide"] li a {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fb5;
+  overflow: hidden;
+  text-indent: -999px;
+  transition: all 0.3s;
+  margin: 5px;
+}
+
+[data-control="slide"] li.active a,
+[data-control="slide"] li a:hover {
+  background-color: #e54;
+}

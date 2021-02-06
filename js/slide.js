@@ -7,6 +7,7 @@ export default class Slide {
 
     this.dist = { finalPostion: 0, startX: 0, movement: 0 };
     this.activeClass = "active";
+    this.changeEvent = new Event("changeEvent");
   }
 
   transition(active) {
@@ -92,6 +93,7 @@ export default class Slide {
     this.slideIndexNav(index);
     this.dist.finalPostion = activeSlide.position;
     this.changeActiveClass();
+    this.wrapper.dispatchEvent(this.changeEvent);
   }
 
   slideIndexNav(index) {
@@ -152,6 +154,11 @@ export default class Slide {
 }
 
 export class SlideNav extends Slide {
+  constructor(wrapper, slide) {
+    super(wrapper, slide);
+    this.addBindControlEvents();
+  }
+
   addArrow(prev, next) {
     this.prevElement = document.querySelector(prev);
     this.nextElement = document.querySelector(next);
@@ -161,5 +168,47 @@ export class SlideNav extends Slide {
   addArrowEvent() {
     this.prevElement.addEventListener("click", this.activePrevSlide);
     this.nextElement.addEventListener("click", this.activeNextSlide);
+  }
+
+  createControls() {
+    const control = document.createElement("ul");
+    control.dataset.control = "slide";
+
+    this.slideArray.forEach((item, index) => {
+      control.innerHTML += `<li>
+        <a href="#slide${index + 1}">${index + 1}</a>
+      </li>`;
+    });
+    this.wrapper.appendChild(control);
+    return control;
+  }
+
+  eventControls(item, index) {
+    item.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.changeSlide(index);
+    });
+    this.wrapper.addEventListener("changeEvent", this.activeControlItem);
+  }
+
+  activeControlItem() {
+    this.controlArray.forEach((item) =>
+      item.classList.remove(this.activeClass)
+    );
+    this.controlArray[this.index.active].classList.add(this.activeClass);
+  }
+
+  addControl(customControl) {
+    this.control =
+      document.querySelector(customControl) || this.createControls();
+    this.controlArray = [...this.control.children];
+
+    this.activeControlItem();
+    this.controlArray.forEach(this.eventControls);
+  }
+
+  addBindControlEvents() {
+    this.eventControls = this.eventControls.bind(this);
+    this.activeControlItem = this.activeControlItem.bind(this);
   }
 }
