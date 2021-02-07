@@ -15,6 +15,38 @@ img {
   max-width: 100%;
 }
 
+.custom-control {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.control-list {
+  display: flex;
+  padding: 0;
+}
+
+.control-list li {
+  height: 70px;
+  width: 70px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.control-list li img {
+  object-fit: cover;
+  border-radius: 25%;
+  opacity: 0.8;
+  transform: scale(0.8);
+  transition: all 0.3s;
+}
+
+.control-list li.active img {
+  transform: scale(1);
+  opacity: 1;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
 .wrapper {
   overflow: hidden;
 }
@@ -51,6 +83,11 @@ img {
   transform: scale(1);
 }
 
+.slide li img {
+  height: 400px;
+  width: 100%;
+}
+
 .controls {
   width: 100%;
   display: flex;
@@ -59,11 +96,25 @@ img {
 }
 
 .controls div {
-  background-color: red;
+  background-color: #fb5;
   color: #fff;
-  padding: 15px 20px;
+  padding: 20px;
   border-radius: 4px;
   cursor: pointer;
+
+  background-image: url("../img/arrow.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  transition: all 0.3s;
+}
+
+.prev {
+  transform: rotate(-180deg);
+}
+
+.controls div:hover {
+  background-color: #e54;
 }
 
 [data-control="slide"] {
