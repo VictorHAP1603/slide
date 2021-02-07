@@ -24,6 +24,7 @@ img {
 .control-list {
   display: flex;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .control-list li {
